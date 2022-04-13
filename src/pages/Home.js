@@ -15,10 +15,12 @@ const Home = () => {
 
    const key = `http://localhost:5000/api/products?limit=${limit}&page=${page}&sort=${sort}`
 
-   const { data, isLoading, error } = useQuery({
-      queryKey: key,
-      queryFn: getData,
-   })
+   //  const { data, isLoading, error } = useQuery({
+   //     queryKey: key,
+   //     queryFn: getData,
+   //  })
+
+   const { data, isLoading, error } = useQuery(key, getData)
 
    useEffect(() => {
       if (data?.products) setProducts(data.products)
@@ -34,7 +36,7 @@ const Home = () => {
          <Sorting page={page} />
          <Products products={products} />
          {isLoading && <p style={{ textAlign: "center" }}>Loading...</p>}
-         {error && <p style={{ textAlign: "center" }}>{error}</p>}
+         {error && <p style={{ textAlign: "center" }}>{error.message}</p>}
          <Pagination totalPages={totalPages} />
       </main>
    )
